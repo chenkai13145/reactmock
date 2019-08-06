@@ -1,0 +1,46 @@
+import axios from 'axios'
+
+
+
+const axiosService = axios.create();
+// if(process.env.NODE_ENV=='development'){
+       
+// }
+
+axiosService.defaults.timeout = 5000;
+axiosService.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api/'
+axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5d01db9b61dd9e4ba61e2117/reacts/'
+axiosService.interceptors.request.use(
+    (config) => {
+        // if (config.data && config.data.$skipAuthHandler) {
+        //     config.$skipAuthHandler = true;
+        //     delete config.data.$skipAuthHandler;
+        // }
+        // if (config.params && config.params.$skipAuthHandler) {
+        //     config.$skipAuthHandler = true;
+        //     delete config.params.$skipAuthHandler;
+        // }
+        // config.headers.Authorization = getAuthorization();
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error)
+    }
+);
+
+axiosService.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        // const err = error.response;
+        // if (err.status === 401 && !! config.data && !config.data.$skipAuthHandler) {
+        //     user.clear();
+        //     window.location = '/unauthorization';
+        // }
+        return Promise.reject(error);
+    }
+);
+
+export default axiosService;

@@ -1,0 +1,23 @@
+.cards{
+    clear: both;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0 60px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 4px #ccc;
+    margin-top: 10px;
+    div:first-child{
+        font-size: 22px;
+        color:#ccc;
+       float: left;
+    }
+    div:last-child{
+        float: left;
+    }
+    &::after{
+        content: ' ';
+        clear: both;
+        display: block;
+        visibility: hidden;
+    }
+}
