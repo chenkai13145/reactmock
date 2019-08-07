@@ -3,8 +3,7 @@ import {LocaleProvider, Card, Form, Button, Input, Table} from 'antd'
 import Alerts from '../../../components/alert/index'
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import ModalLeft from '../component/case/modal'
-import DrawNodal from '../component/case/draw'
-import './index.less'
+import DrawNodal from '../component/custer/forms'
 const FormItem = Form.Item
 class LawyerCase extends React.Component {
     state={
@@ -36,6 +35,14 @@ class LawyerCase extends React.Component {
             pagination:pagination
         })
         
+    }
+    onRef = (ref) => {
+        this.child = ref
+    }
+    //编辑
+    handleEdit=(record)=>{
+        this.setState({visibles:true})
+        this.child.myName(record)
     }
     render() {
             const columns = [
@@ -78,7 +85,7 @@ class LawyerCase extends React.Component {
                       title: '操作',
                       key: 'operation',
                       width: 100,
-                      render: () => (<span><a href="javascript:;" onClick={()=>{this.setState({visibles:true})}} style={{color:'green'}}>跟踪</a>&nbsp;&nbsp;<a href="javascript:;">详情</a></span>),
+                      render: (text, record, index) => (<span><a href="javascript:;" onClick={()=>{this.handleEdit(record)}} style={{color:'green'}}>编辑</a>&nbsp;&nbsp;<a href="javascript:;">详情</a></span>),
                   },
         ];
             const data=[
@@ -102,7 +109,7 @@ class LawyerCase extends React.Component {
                 <Card>
                     <FormValues />
                     <div className="centerBtn">
-                        <Button type='dashed' onClick={()=>{this.setState({visible:true})}} icon='plus'>新增</Button>
+                        <Button type='dashed' onClick={()=>{this.setState({visibles:true})}} icon='plus'>新增</Button>
                         <Button type='default'>批量操作</Button>
                         <Button type='default'>...</Button>
                     </div>
@@ -110,7 +117,7 @@ class LawyerCase extends React.Component {
                     {/* 新增模态框 */}
                     <ModalLeft visible={this.state.visible} visibleclose={()=>{this.setState({visible:false})}}/>
                     {/* 跟踪模态框 */}
-                    <DrawNodal visible={this.state.visibles} loading={this.state.loading} handleCancel={()=>{this.setState({visibles:false})}}/>
+                    <DrawNodal onRef={this.onRef}  visible={this.state.visibles} loading={this.state.loading} handleCancel={()=>{this.setState({visibles:false})}}/>
                     <LocaleProvider locale={zh_CN}><Table onChange={this.changePagination} columns={columns} dataSource={data} pagination={this.state.pagination}/></LocaleProvider>
                 </Card>
             </div>

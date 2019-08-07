@@ -132,6 +132,10 @@ const menuList = [
                 title: '收案',
                 key: '/lawyer/case'
             },
+            {
+                title: '客户',
+                key: '/lawyer/custer'
+            },
         ]
     },
    

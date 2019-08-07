@@ -39,6 +39,7 @@ import Echarts from '../views/echarts'
 import LawyerHome from '../views/Lawyer/home'
 import LawyerTeam from '../views/Lawyer/team'
 import LawyerCase from '../views/Lawyer/case'
+import LawyerCuster from '../views/Lawyer/custer'
 
 export default class extends React.Component{
     render(){
@@ -77,6 +78,7 @@ export default class extends React.Component{
                               <Route path="/lawyer/home" component={LawyerHome}></Route>
                               <Route path='/lawyer/team' component={LawyerTeam}></Route>
                               <Route path='/lawyer/case' component={LawyerCase}></Route>
+                              <Route path='/lawyer/custer' component={LawyerCuster}></Route>
                               <Redirect to={'/home'}/>
                               <Route component={NOfound}></Route>
                           </Switch>
