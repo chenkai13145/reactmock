@@ -1,7 +1,11 @@
 import React from 'react'
-import { Form, Input,Radio,Modal,Button } from 'antd'
+import {message, Form, Input,Radio,Modal,Button } from 'antd'
+import {editCuster,addCuster} from '@/api/custer/custer'
 
 class FormCuster extends React.Component {
+    params={
+        title:''
+    }
     componentDidMount(){
         this.props.onRef(this)
     }
@@ -10,7 +14,23 @@ class FormCuster extends React.Component {
         this.props.form.setFieldsValue({
             ...record
         })
-        console.log(record)
+    }
+    //确认按钮
+    handleOk=()=>{
+         let datas=this.props.form.getFieldsValue()
+         this.params.title==="编辑"?editCuster(datas).then(res=>{
+           if(res.data.code===0){
+            // this.props.handleCancel()
+            message.success('编辑成功')
+            this.props.handleEditOk()
+           }
+         }):addCuster(datas).then(res=>{
+            if(res.data.code===0){
+                // this.props.handleCancel()
+                message.success('新增成功')
+                this.props.handleEditOk()
+               }
+         })
     }
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -25,7 +45,7 @@ class FormCuster extends React.Component {
         return (
                  <Modal
                     visible={this.props.visible}
-                    title="新增"
+                    title={this.params.title}
                     width={500}
                     onOk={this.handleOk}
                     onCancel={() => { this.props.handleCancel() }}
@@ -40,7 +60,7 @@ class FormCuster extends React.Component {
                 >
                 <Form>
                     <Form.Item {...layoutBable} label="客户名称">
-                        {getFieldDecorator('custName', {
+                        {getFieldDecorator('caseName', {
                             rules: [{ required: true, message: '必填' }],
                         })(
                             <Input style={{width:200}}
@@ -51,8 +71,8 @@ class FormCuster extends React.Component {
                     <Form.Item {...layoutBable} label="性别">
                         {getFieldDecorator('sex')(
                             <Radio.Group style={{width:200}}>
-                                <Radio value="男">男</Radio>
-                                <Radio value="女">女</Radio>
+                                <Radio value={1}>男</Radio>
+                                <Radio value={2}>女</Radio>
                             </Radio.Group>
                         )}
                     </Form.Item>

@@ -1,32 +1,73 @@
 import React from 'react';
 import {LocaleProvider, Card, Form, Button, Input, Table} from 'antd'
+import { connect } from 'react-redux'
+import {getcusterlist} from "@/redux/action/custer/custer"
 import Alerts from '../../../components/alert/index'
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import ModalLeft from '../component/case/modal'
 import DrawNodal from '../component/custer/forms'
 const FormItem = Form.Item
 class LawyerCase extends React.Component {
-    state={
-        choose:1,
-        pagination:{  //分页参数
-            current:1,
-            pageSize:5,
-            pageSizeOptions:['5','10','15','20'],
-            showQuickJumper:true,
-            showSizeChanger:true,
-            showTotal:(total, range)=>{
-               return '共'+total+'页'
+    constructor(props){
+        super(props)
+        this.state={
+            data:[],
+            choose:0,
+            selectedRowKeys:[],
+            pagination:{  //分页参数
+                current:1,
+                pageSize:5,
+                pageSizeOptions:['5','10','15','20'],
+                showQuickJumper:true,
+                showSizeChanger:true,
+                showTotal:(total, range)=>{
+                   return '共'+total+'页'
+                },
+                total:30
             },
-            total:30
-        },
-        visible:false,//新增开关draw
-        visibles:false, //跟踪开关
-        loading:false
+            visible:false,//新增开关draw
+            visibles:false, //跟踪开关
+            loading:false,
+            title:''
+        }
+    }
+    params={
+        current:"",
+        pageSize:""
+    }
+    componentWillMount(){
+    }
+    componentWillReceiveProps(nextProps,oldProps){
+        let custitem=nextProps.custlist!=undefined?(nextProps.custlist.item_list).toString():''
+        let oldcust=oldProps.custlist!=undefined?(oldProps.custlist.item_list).toString():''
+         if(custitem!=oldcust&&custitem!=''){
+                 this.setState({
+                     data:nextProps.custlist.item_list,
+                     pagination:{
+                        current:nextProps.custlist.page,
+                        pageSize:nextProps.custlist.page_size,
+                        total:nextProps.custlist.total_count
+                     }
+                 })
+         }
+    }
+    //数据请求
+    requestList(){
+        let datas=this.inputVal.props.form.getFieldsValue();
+            for(let key in datas){
+                this.params[key]=datas[key]===undefined?'':datas[key]
+            }
+            this.setState({
+                choose:0,
+                selectedRowKeys:[]
+            })
+        this.props.getcusterlist(this.params)
     }
     //清空事件
     clear=()=>{
         this.setState({
-            choose:0
+            choose:0,
+            selectedRowKeys:[]
         })
     }
     //分页
@@ -34,6 +75,9 @@ class LawyerCase extends React.Component {
         this.setState({
             pagination:pagination
         })
+        this.params.current=pagination.current
+        this.params.pageSize=pagination.pageSize
+        this.requestList()
         
     }
     onRef = (ref) => {
@@ -42,29 +86,64 @@ class LawyerCase extends React.Component {
     //编辑
     handleEdit=(record)=>{
         this.setState({visibles:true})
+        this.child.params.title="编辑"
         this.child.myName(record)
     }
+    //编辑确认
+    handleEditOk=()=>{
+         this.setState({visibles:false})
+         this.requestList()
+    }
+    componentDidMount(){
+        this.requestList()
+    }
+    //重置
+    restVal=()=>{
+       this.inputVal.props.form.resetFields()
+       this.requestList()
+    }
+    //查询
+    check=()=>{
+       this.requestList()
+    }
+   
     render() {
+            const rowSelection={
+                type:'checkbox',
+                selectedRowKeys:this.state.selectedRowKeys,
+                onChange:(selectedRowKeys, selectedRows)=>{
+                   this.setState({
+                       selectedRowKeys,
+                       choose:selectedRowKeys.length
+                   })
+                }
+            }
             const columns = [
-                {
+                  {
                     title: "序号",
-                    dataIndex: "",
+                    dataIndex: " ",
                     key: "rowIndex",
                     width: 60,
                     align: "center",
-                    customRender: function(t, r, index) {
+                    render: function(t, r, index) {
                       return parseInt(index) + 1;
                     }
                   },
                   {
                     title: '客户名称',
                     align:"center",
-                    dataIndex: 'custName'
+                    dataIndex: 'caseName'
                    },
                    {
                     title: '性别',
                     align:"center",
-                    dataIndex: 'sex'
+                    dataIndex: 'sex',
+                    render:(sex)=>{
+                       return {
+                         '1':'男',
+                         '2':'女'
+                        }[sex]
+                    }
                    },
                    {
                     title: '电话',
@@ -107,9 +186,15 @@ class LawyerCase extends React.Component {
            return (
             <div>
                 <Card>
-                    <FormValues />
+                    <FormValues check={this.check} restVal={this.restVal} wrappedComponentRef={(val)=>{this.inputVal=val}} />
                     <div className="centerBtn">
-                        <Button type='dashed' onClick={()=>{this.setState({visibles:true})}} icon='plus'>新增</Button>
+                        <Button type='dashed' onClick={()=>{
+                        this.child.props.form.resetFields()
+                        this.child.params.title="新增"
+                        this.setState({visibles:true,title:'新增'})
+                         }
+                        } 
+                        icon='plus'>新增</Button>
                         <Button type='default'>批量操作</Button>
                         <Button type='default'>...</Button>
                     </div>
@@ -117,17 +202,16 @@ class LawyerCase extends React.Component {
                     {/* 新增模态框 */}
                     <ModalLeft visible={this.state.visible} visibleclose={()=>{this.setState({visible:false})}}/>
                     {/* 跟踪模态框 */}
-                    <DrawNodal onRef={this.onRef}  visible={this.state.visibles} loading={this.state.loading} handleCancel={()=>{this.setState({visibles:false})}}/>
-                    <LocaleProvider locale={zh_CN}><Table onChange={this.changePagination} columns={columns} dataSource={data} pagination={this.state.pagination}/></LocaleProvider>
+                    <DrawNodal onRef={this.onRef} handleEditOk={this.handleEditOk}  visible={this.state.visibles} loading={this.state.loading} handleCancel={()=>{this.setState({visibles:false})}}/>
+                    <LocaleProvider locale={zh_CN}><Table onChange={this.changePagination} columns={columns} dataSource={this.state.data} pagination={this.state.pagination} rowSelection={rowSelection}/></LocaleProvider>
                 </Card>
             </div>
         );
     }
 }
-
-export default LawyerCase;
-
-
+const mapStateToProps=(state)=>({
+     custlist:state.custer.cust
+})
 class FormValue extends React.Component {
     constructor() {
         super()
@@ -172,8 +256,8 @@ class FormValue extends React.Component {
                     </FormItem>) : null
                 }
                 <FormItem>
-                    <Button type="primary" onClick={this.check}> 查询</Button>
-                    <Button type="primary" onClick={this.check}> 重置</Button>
+                    <Button type="primary" onClick={this.props.check}> 查询</Button>
+                    <Button type="primary" onClick={this.props.restVal}> 重置</Button>
                     {
                         this.state.show ? (<a onClick={() => this.setState({ show: false })}>收起</a>) : (<a onClick={() => this.setState({ show: true })}>展开</a>)
                     }
@@ -182,5 +266,7 @@ class FormValue extends React.Component {
         )
     }
 }
-
 const FormValues = Form.create({})(FormValue);
+
+export default connect(mapStateToProps,{getcusterlist})(LawyerCase);
+
