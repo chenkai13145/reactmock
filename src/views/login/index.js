@@ -11,6 +11,7 @@ class NormalLoginForm extends React.Component {
       if (!err) {
         if(values.username==='陈凯' && values.password==='654321'){
            this.props.postLogin(this.props.history)
+           localStorage.setItem('date',new Date().getTime()+60*60*1000)
         }
       }
     });

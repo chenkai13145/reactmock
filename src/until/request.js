@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {message} from 'antd'
 
 
 
@@ -13,6 +14,16 @@ axiosService.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5d01db9b61dd9e4ba61e2117/reacts/'
 axiosService.interceptors.request.use(
     (config) => {
+        let nowdate=new Date().getTime()
+        let olddate=localStorage.getItem('date')
+        if(nowdate>olddate){
+            localStorage.removeItem('token')
+            localStorage.removeItem('date')
+            setTimeout(()=>{
+               window.location.reload()
+            },3000)
+            message.error('登录已过时，请重新登录')
+        }
         // if (config.data && config.data.$skipAuthHandler) {
         //     config.$skipAuthHandler = true;
         //     delete config.data.$skipAuthHandler;
