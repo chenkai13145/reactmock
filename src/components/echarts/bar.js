@@ -20,11 +20,14 @@ class EchartsTest extends Component {
     }
     componentDidMount() {
         this.ininBar()
+        window.addEventListener('resize',()=>{
+            // console.log(this.echartsVal.myChart)
+            this.echartsVal.myChart.resize()
+        })
     }
     ininBar=()=>{
-           
            // 基于准备好的dom，初始化echarts实例
-           this.echartsVal.myChart=echarts.init(document.getElementById(this.state.idount))
+          this.echartsVal.myChart=echarts.init(document.getElementById(this.state.idount))
           // 绘制图表
           this.echartsVal.myChart.showLoading({
               backgroundColor:'#000'
@@ -41,7 +44,7 @@ class EchartsTest extends Component {
     }
     render() {
         return (
-            <div id={this.state.idount} style={{ width: 400, height: 400 }}></div>
+            <div id={this.state.idount} style={{  height: 400 }}></div>
         );
     }
 }

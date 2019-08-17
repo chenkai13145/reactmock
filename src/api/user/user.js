@@ -13,3 +13,11 @@ export function addUser(data){
         url:data.url
     })
 }
+
+export function login(data){
+    return request({
+        url:'/login',
+        method:'post',
+        data,
+    })
+}

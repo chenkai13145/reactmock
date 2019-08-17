@@ -1,6 +1,6 @@
 import {GET_CUSTERLIST} from '../../action/type'
 const initStateVal={
-    cust:{}
+    cust:{},
 }
 export default (state=initStateVal,action)=>{
     switch (action.type) {

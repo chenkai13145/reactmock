@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {outLogin} from '@/redux/action/login/login'
 import './index.less'
 import axios from '../../until/jsonp.js'
 export default class Header extends React.Component {
@@ -32,7 +34,10 @@ export default class Header extends React.Component {
         return (
             <div className='header'>
                 <div className="top">
-                    <div>推出</div>
+                    <div style={{cursor: 'pointer'}} onClick={()=>{
+                        localStorage.removeItem('token')
+                        window.location.reload()
+                    }}>推出</div>
                     <div>
                         <span>欢迎，</span>
                         <span>{this.state.name}</span>
