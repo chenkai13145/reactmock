@@ -147,6 +147,7 @@ export default class Tables extends React.Component{
                        
                       };
                     }}
+                    footer={()=>(<p>介绍<h2>客户</h2>的价格是</p>)}
                     />
                 </Card>
                 <Card style={{marginBottom:'20px'}} title="动态渲染表格-多选">
@@ -154,7 +155,9 @@ export default class Tables extends React.Component{
                      columns={columns} 
                      pagination={false}
                      dataSource={this.state.data2}
-                   
+                     expandedRowRender={()=>
+                       ( <Table  columns={columns} dataSource={this.state.data2}/> )
+                     }
                      />
                 </Card>
                 
