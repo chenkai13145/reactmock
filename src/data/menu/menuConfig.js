@@ -102,11 +102,11 @@ const menuList = [
         key: '/ims',
         children:[
             {
-                title: '全业务受理日志',
+                title: '仓库实时监控',
                 key: '/order',
             },
             {
-                title: 'ims',
+                title: '运输实时监控',
                 key: '/user'
             },
             {
