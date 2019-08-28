@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card,Button} from 'antd'
 import Filter from '@/components/home/homeCustm/filter'
+import LineEcharts from '@/components/home/echartst/line'
 export default class Home extends React.Component{
     constructor(){
         super()
@@ -20,7 +21,13 @@ export default class Home extends React.Component{
                     {this.state.headoff?<Filter parentsFnHome={this.parentsFnHome}/>:''}
                 </div>
                 <Card>
-
+                   <LineEcharts/>
+                </Card>
+                <Card>
+                   <LineEcharts/>
+                </Card>
+                <Card>
+                   <LineEcharts/>
                 </Card>
             </div>
         )

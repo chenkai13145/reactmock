@@ -12,9 +12,9 @@ const PrivateRoute = ({ component: Component, auth,...rest }) => (
         : <Redirect to='/login' />
     )} />
   )
-  PrivateRoute.propTypes = {
-    auth: PropTypes.object.isRequired
-  }
+  // PrivateRoute.PropTypes = {
+  //   auth: PropTypes.
+  // }
 const mapStateToProps = state => ({
     auth: state.loginReducer.auth
 })
