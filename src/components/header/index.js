@@ -46,7 +46,7 @@ export default class Header extends React.Component {
                 {
                     menuType?'':<div className="bottom">
                     <div>
-                        { this.props.item!="首页"?this.props.item:this.props.valHeader}
+                        {this.props.item}
                     </div>
                     <div>
                         <span>{this.state.dtime}</span>
