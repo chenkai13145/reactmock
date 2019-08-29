@@ -11,7 +11,7 @@ export default class LineEchart extends React.Component{
     }
     option = {
         title: {
-            text: '折线图堆叠'
+            text: ''
         },
         tooltip: {
             trigger: 'axis'

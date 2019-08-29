@@ -2,6 +2,7 @@ import React from 'react'
 import {Card,Button} from 'antd'
 import Filter from '@/components/home/homeCustm/filter'
 import LineEcharts from '@/components/home/echartst/line'
+import BarEcharts from '@/components/home/echartst/bar'
 export default class Home extends React.Component{
     constructor(){
         super()
@@ -27,6 +28,18 @@ export default class Home extends React.Component{
                 </Card>
                 <Card>
                    <LineEcharts/>
+                </Card>
+
+                <Card>
+                   <BarEcharts/>
+                </Card>
+                
+                <Card>
+                   <BarEcharts/>
+                </Card>
+                
+                <Card>
+                   <BarEcharts/>
                 </Card>
             </div>
         )
