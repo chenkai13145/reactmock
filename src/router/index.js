@@ -42,6 +42,10 @@ import LawyerTeam from '../views/Lawyer/team'
 import LawyerCase from '../views/Lawyer/case'
 import LawyerCuster from '../views/Lawyer/custer'
 
+//流程图
+import FlowSheet from '../views/flowsheet'
+
+
 export default class extends React.Component{
     render(){
         return(
@@ -80,6 +84,7 @@ export default class extends React.Component{
                               <PrivateRoute path='/lawyer/team' component={LawyerTeam}></PrivateRoute>
                               <PrivateRoute path='/lawyer/case' component={LawyerCase}></PrivateRoute>
                               <PrivateRoute path='/lawyer/custer' component={LawyerCuster}></PrivateRoute>
+                              <PrivateRoute path='/flowsheet' component={FlowSheet}></PrivateRoute>
                               <Redirect to={'/home'}/>
                               <PrivateRoute component={NOfound}></PrivateRoute>
                           </Switch>
