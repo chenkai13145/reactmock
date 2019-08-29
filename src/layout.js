@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col,message } from 'antd'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { menu } from '@/redux/action/menu/menu'
@@ -25,6 +25,16 @@ class Layout extends React.Component {
     }
 
     render() {
+        let date=localStorage.getItem('date')
+        let nowDate=new Date().getTime()
+        if(nowDate>date){
+            localStorage.removeItem('token')
+            localStorage.removeItem('date')
+            setTimeout(()=>{
+               window.location.reload()
+            },3000)
+            message.error('登录已过时，请重新登录')
+        }
         return (
             <Row className='contair'>
                 <Col span={3} className='navleft'>

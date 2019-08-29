@@ -10,7 +10,6 @@ export default class Home extends React.Component{
         }
     }
     parentsFnHome=(arr)=>{
-  console.log(arr)
     }
     render(){
         return(
