@@ -4,10 +4,6 @@ const menuList = [
         key: '/home'
     },
     {
-        title: '流程图',
-        key: '/flowsheet'
-    },
-    {
         title: 'UI',
         key: '/ui',
         children: [
@@ -76,6 +72,10 @@ const menuList = [
     {
         title: '富文本',
         key: '/rich'
+    },
+    {
+        title: '流程图',
+        key: '/flowsheet'
     },
     {
         title: '城市单车管理平台',
