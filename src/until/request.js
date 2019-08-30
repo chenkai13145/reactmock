@@ -7,11 +7,14 @@ const axiosService = axios.create();
 // if(process.env.NODE_ENV=='development'){
        
 // }
-
+axios.defaults.withCredentials = true;
 axiosService.defaults.timeout = 5000;
 axiosService.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-// axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api/'
-axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5d01db9b61dd9e4ba61e2117/reacts/'
+axiosService.defaults.headers.common['Accept']="application/json, text/plain, */*";
+axiosService.defaults.headers.common['Content-Type']="application/json;charset=utf-8";
+// axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/reacts/'
+// axiosService.defaults.baseURL='https://www.easy-mock.com/mock/5d01db9b61dd9e4ba61e2117/reacts/'
+axiosService.defaults.baseURL='/api'
 axiosService.interceptors.request.use(
     (config) => {
         let nowdate=new Date().getTime()
