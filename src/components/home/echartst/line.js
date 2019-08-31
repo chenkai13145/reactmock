@@ -86,7 +86,8 @@ export default class LineEchart extends React.Component{
         this.echart.thounth.resize()
     })
     }
-
+    
+    //初始化图标
     renderEchart(){
        this.echart.thounth=echarts.init(document.getElementById(this.echart.id))
        this.echart.thounth.showLoading({
@@ -101,14 +102,17 @@ export default class LineEchart extends React.Component{
         },1000)
     }
     }
-
+    
+    //传过来的数据初始化
     handChange(){
-        this.option.legend.data=this.option.legend.data.map(item=>{
+        this.option.legend.data=this.props.datas.lengend.map(item=>{
             let obj={}
             obj.name=item
             obj.icon='rect'
             return obj
         })
+        this.option.series=this.props.datas.series
+        this.option.xAxis.data=this.props.datas.dataX
     }
     
     render(){
