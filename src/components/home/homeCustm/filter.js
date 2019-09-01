@@ -85,27 +85,27 @@ export class Filter extends Component {
                             name: '线路承运量(辆)',
                             checkbox: false
                         },
-                        {
-                            name: '线路运输距离(km)',
-                            checkbox: false
-                        }
+                        // {
+                        //     name: '线路运输距离(km)',
+                        //     checkbox: false
+                        // }
                     ]
                 },
                 {
                     name: '运输安全分析',
                     list: [
-                        {
-                            name: '安全事件类型对比(次)',
-                            checkbox: false
-                        },
                         // {
-                        //     name: '高风险次数与有效干预占比(%)',
+                        //     name: '安全事件类型对比(次)',
                         //     checkbox: false
                         // },
-                        {
-                            name: '危险行为时段分布(次)',
-                            checkbox: false
-                        },
+                        // // {
+                        // //     name: '高风险次数与有效干预占比(%)',
+                        // //     checkbox: false
+                        // // },
+                        // {
+                        //     name: '危险行为时段分布(次)',
+                        //     checkbox: false
+                        // },
                         {
                             name: '高风险行为次数(次)',
                             checkbox: false
@@ -226,27 +226,27 @@ export class Filter extends Component {
                     name: '线路承运量(辆)',
                     checkbox: false
                 },
-                {
-                    name: '线路运输距离(km)',
-                    checkbox: false
-                }
+                // {
+                //     name: '线路运输距离(km)',
+                //     checkbox: false
+                // }
             ]
         },
         {
             name: '运输安全分析',
             list: [
-                {
-                    name: '安全事件类型对比(次)',
-                    checkbox: false
-                },
                 // {
-                //     name: '高风险次数与有效干预占比(%)',
+                //     name: '安全事件类型对比(次)',
                 //     checkbox: false
                 // },
-                {
-                    name: '危险行为时段分布(次)',
-                    checkbox: false
-                },
+                // // {
+                // //     name: '高风险次数与有效干预占比(%)',
+                // //     checkbox: false
+                // // },
+                // {
+                //     name: '危险行为时段分布(次)',
+                //     checkbox: false
+                // },
                 {
                     name: '高风险行为次数(次)',
                     checkbox: false
@@ -291,7 +291,7 @@ export class Filter extends Component {
  */ str = []
     oncahngBox = (item, index, index2, checkbo) => {
         if (!checkbo) {
-            if (this.checkList.length >= 6) {
+            if (this.checkList.length >= 4) {
                 message.error('最多选择6个选项')
                 return;
             } else {
@@ -317,6 +317,12 @@ export class Filter extends Component {
     componentWillMount() {
         //按钮初始时，选中checkbox值
         this.str = []
+        // let enben=[]
+        // let obj={}
+        // this.props.chek.forEach(item=>{
+        //     obj[item.name]=item
+        // })
+        // let data=Object.values(obj)
         this.props.chek.forEach(items => {
             this.str.push(items.name)
             this.checkList.push({name:items.name,checkbox:true})
@@ -348,8 +354,8 @@ export class Filter extends Component {
                         <strong>{items.name}</strong>
                         <p>
                             {items.list.map((item, index2) => {
-                                return (<span key={index2} onClick={() => { this.oncahngBox(items, index, index2, item.checkbox) }}>
-                                    <input type="checkbox" onChange={this.oncahngBoxs} checked={item.checkbox} />
+                                return (<span key={index2} onClick={item.name==='线路交付及时率(%)'||item.name==='线路承运量(辆)'?()=>{}:() => {this.oncahngBox(items, index, index2, item.checkbox) }}>
+                                    <input type="checkbox" onChange={this.oncahngBoxs} checked={item.name==='线路交付及时率(%)'||item.name==='线路承运量(辆)'?true:item.checkbox} />
                                     <label>{item.name}</label>
                                 </span>)
                             })}
