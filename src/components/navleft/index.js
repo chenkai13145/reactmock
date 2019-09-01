@@ -38,7 +38,7 @@ export default class Navleft extends React.Component {
             <div className="navleft">
             <div className='logo'>
                  <span><img src="/assets/logo-ant.svg"/></span>
-                 <span>antd</span>
+                 <span>凯</span>
             </div>
             <Menu selectedKeys={[url]} theme="dark" mode="vertical">
                 {this.state.menuLists}

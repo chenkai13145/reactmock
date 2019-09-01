@@ -113,6 +113,7 @@ export default class Home extends React.Component {
             }
         })
     }
+    
     //line封装方法
     lineFun(res, title) {
         let arr = []
@@ -622,7 +623,7 @@ export default class Home extends React.Component {
                 {/* 删选 */}
                 
                 <div className="home_main_top">
-                    <Button style={{ position: 'absolute', right: 0, zIndex: 32 }} onClick={() => { this.setState({ headoff: !this.state.headoff }) }}>自定义</Button>
+                    <Button style={{ position: 'absolute', right: 0, zIndex: 32 }} onClick={() => { this.setState({ headoff: !this.state.headoff }) }}>{this.state.headoff?'关闭':'自定义'}</Button>
                     {this.state.headoff ? <Filter chek={this.state.newDatarr} parentsFnHome={this.parentsFnHome} /> : ''}
                 </div>
                 {this.state.newDatarr.map((item, index) => {
