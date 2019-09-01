@@ -31,7 +31,7 @@ class NormalLoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} layout='horizontal' className="login">
         <Form.Item {...layoutCol} label='用户名'>
           {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [{ required: true, message: '请输入用户名' }],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -41,7 +41,7 @@ class NormalLoginForm extends React.Component {
         </Form.Item>
         <Form.Item {...layoutCol} label="密码">
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            rules: [{ required: true, message: '请输入密码' }],
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}

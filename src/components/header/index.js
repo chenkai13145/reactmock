@@ -50,7 +50,7 @@ export default class Header extends React.Component {
                     </div>
                     <div>
                         <span>{this.state.dtime}</span>
-                        <span>{this.state.wether}</span>
+                        {/* <span>{this.state.wether}</span> */}
                     </div>
                </div>
                 }
