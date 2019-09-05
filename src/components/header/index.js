@@ -5,7 +5,7 @@ import './index.less'
 import axios from '../../until/jsonp.js'
 export default class Header extends React.Component {
     state={
-        name:"陈凯大大",
+        name:"到访",
         dtime:'',
         wether:"天气晴朗"
     }
@@ -37,7 +37,7 @@ export default class Header extends React.Component {
                     <div style={{cursor: 'pointer'}} onClick={()=>{
                         localStorage.removeItem('token')
                         window.location.reload()
-                    }}>推出</div>
+                    }}>退出</div>
                     <div>
                         <span>欢迎，</span>
                         <span>{this.state.name}</span>
@@ -50,6 +50,8 @@ export default class Header extends React.Component {
                     </div>
                     <div>
                         <span>{this.state.dtime}</span>
+                        <span style={{color:'red'}}>电话:13981722057</span>
+                        <span style={{color:'red'}}>邮箱:1263455889@qq.com</span>
                         {/* <span>{this.state.wether}</span> */}
                     </div>
                </div>

@@ -17,6 +17,9 @@ export default class Navleft extends React.Component {
         getRouter().then(res=>{
             if(res.status===200){
                 let route=res.data.data
+                console.log(route)
+                console.log('路由================================================================')
+                console.log(route)
                 this.setState({
                     menuLists: this.menuListfn(route)
                 }) 
