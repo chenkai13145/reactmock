@@ -467,33 +467,29 @@ export default class Home extends React.Component {
     //危险行为时段分布
     getriskTimeFrame() {
         getriskTimeFrame().then(res => {
-            console.log(res)
             if(res.status===200){
                 this.barlenght++;
                 let data=res.data.data
                 let obj={}
                 let arr=[]
                 obj.name='危险行为时段分布(次)'
-                obj.type='barlines'
-                arr.push(['name',...data.map(item=>item.code_name)])
+                obj.type='bar'
+                obj.lengend=data.map(item=>item.code_name)
+                obj.dataX=data[0].value.map(item=>item.risk_descr)
                 data.forEach(item=>{
                     let objs={}
                     objs.name=item.code_name
+                    objs.type='bar'
+                    objs.data=[]
+                  
                     for(let key in item.value){
                        let ring=item.value[key].risk_descr.toString().substring(0,item.value[key].risk_descr.length-1)
                        let numstring='numbers_hour_'+ring.padStart(2,'0')
-                       console.log(numstring)
-                         
-                        objs[key]=item[numstring]
+                       objs.data.push(item[numstring])
                     }
-                    let arrobjs=Object.values(objs)
-                    let lastindex=arrobjs.length-1
-                    let lastvalue=arrobjs.splice(lastindex,1)
-                    arrobjs.unshift(...lastvalue)
-                
-                    arr.push(arrobjs)
+                    arr.push(objs)
                 })
-                obj.source=arr
+                obj.series=arr
                 this.arrs.push(obj)
                 if (this.barlenght + this.prcoTwolenght + this.prcolenght + this.linelenght === this.alllength) {
                     this.setState({

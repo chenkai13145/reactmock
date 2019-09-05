@@ -25,14 +25,14 @@ export default class FilterFrom extends React.Component{
                         </FormItem>
                         <FormItem label="订单时间">
                         {getFieldDecorator('start-time')(
-                            <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                            <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder='开始时间' />
                         )}      
                        
                         </FormItem>
                         <FormItem>
                             
                         {getFieldDecorator('end-time')(
-                         <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                         <DatePicker showTime format="YYYY-MM-DD HH:mm:ss" placeholder='结束时间' />
                         )}
                         </FormItem>
                         <FormItem label="订单状态">

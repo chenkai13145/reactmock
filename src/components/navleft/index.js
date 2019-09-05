@@ -2,6 +2,7 @@ import React from 'react'
 import menuList from '../../data/menu/menuConfig'
 import { Menu, Icon } from 'antd';
 import {NavLink} from 'react-router-dom'
+import {getRouter}from '@/api/user/user'
 import './index.less'
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -13,9 +14,15 @@ export default class Navleft extends React.Component {
         key:'/home'
     }
     componentWillMount() {
-        this.setState({
-            menuLists: this.menuListfn(menuList)
-        }) 
+        getRouter().then(res=>{
+            if(res.status===200){
+                let route=res.data.data
+                this.setState({
+                    menuLists: this.menuListfn(route)
+                }) 
+            }
+        })
+       
     }
     Headertitle=(item)=>{
         this.props.layout(item.title)

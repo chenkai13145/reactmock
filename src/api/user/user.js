@@ -21,3 +21,10 @@ export function login(data){
         data,
     })
 }
+export function getRouter(data){
+    return request({
+        url:'getrouter',
+        method:'get',
+        params:data
+    })
+}

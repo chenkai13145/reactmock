@@ -35,7 +35,7 @@ export default class FilterForm  extends React.Component{
                         <FormItem>
                         {
                              getFieldDecorator('time')(
-                                <RangePicker/>
+                                <RangePicker placeholder='时间选择'/>
                              )
                         }
                            

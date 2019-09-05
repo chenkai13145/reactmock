@@ -102,10 +102,10 @@ export class Filter extends Component {
                         // //     name: '高风险次数与有效干预占比(%)',
                         // //     checkbox: false
                         // // },
-                        // {
-                        //     name: '危险行为时段分布(次)',
-                        //     checkbox: false
-                        // },
+                        {
+                            name: '危险行为时段分布(次)',
+                            checkbox: false
+                        },
                         {
                             name: '高风险行为次数(次)',
                             checkbox: false
@@ -243,10 +243,10 @@ export class Filter extends Component {
                 // //     name: '高风险次数与有效干预占比(%)',
                 // //     checkbox: false
                 // // },
-                // {
-                //     name: '危险行为时段分布(次)',
-                //     checkbox: false
-                // },
+                {
+                    name: '危险行为时段分布(次)',
+                    checkbox: false
+                },
                 {
                     name: '高风险行为次数(次)',
                     checkbox: false
